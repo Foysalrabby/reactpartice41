@@ -22,7 +22,7 @@ const Home = () => {
 //three different kinds api to data load for
    const [loadarraytjson,setloadarrayTjson]=useState([]);
    const [loadjsonT ,setloadjsonT]=useState({});//single
-   const [loadjsontarr ,setlodsontarr]=useState(); //jsonmodde array then jsonob
+   const [loadjsontarr ,setlodsontarr]=useState({}); //jsonmodde array then jsonob
 
 
    useEffect(()=>{
@@ -39,6 +39,14 @@ const Home = () => {
         .then(data =>{
             setloadjsonT(data);}
             )
+
+  //random user last json to array mmodde json   
+  fetch("https://randomuser.me/api/")
+  .then(res => res.json())
+  .then(data =>{
+    setlodsontarr(data.results[0]);}   //data.result dile usestate  [] hbe arrray ase ty ar map or for loop
+      //hobe  ame single user jnno load korbo
+      )       
 
    },[]);
 
@@ -58,8 +66,12 @@ const Home = () => {
             loadjsonT.map(loadkey1=><li>{loadkey1.address.city +"name :"+ loadkey1.name}</li>)
              }  map dorkar nai json object hishabe ase*/} 
             <p>start singlename :  {loadjsonT.name}</p>
-            <p>start cmpany name :  {loadjsonT.company.name}</p>
+            <p>start cmpany name :  {loadjsonT.company && loadjsonT.company.name}</p>
 
+            <br></br>
+            <p>random user status : {loadjsontarr.gender}</p>
+            <p>start singlename :  {loadjsontarr.name && loadjsontarr.name.first }</p>
+            
 
         </div>
     );
